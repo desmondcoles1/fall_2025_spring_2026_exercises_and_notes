@@ -454,6 +454,24 @@ I am taking notes on \href{this talk from the main Arklib maintainers}{https://w
 I am also giving this \href{this talk from Nethermind and the Arklib group}{https://www.youtube.com/watch?v=4VnolGW-iv4} a watch. One part of this is that the thing they want to verify uses RISC-V. RISC-V is an architecture for actually executing code on a CPU. Sail is a language for modeling the Instruction Set Architecture of RISC-V for formal specification purposes and it can be used with things like Lean to formally verify programs. SP1 is a zkVM that uses RISC-V, this project was about formally verifying it, in particular they want to show that SP1 constrains align with the RISCV ISA, meaning that proofs that SP1 generates are only proofs of code that is being executed according to RISCV. I.e. we want to show that SP1 faithfully implements RISC-V.
 
 Note to self: I need to understand Fiat-Shamir better, as well as BCS and IOPs
+
+I am also going to work through Rustlings. The first topic is variable naming and mutability. The big point is that in Rust variables are by default immutable, and this is done because writing code where $x$ appears one place and is used in a way that needs to be immutable, and then later changing $x$ to something else, can cause problems. Instead of let you can use const to make "constants" which are actually constant values that are specified at compile time and put into machine code. Variables on the other hand are memory locations and are loaded at runtime. Using const also allows you to write things into the code that are globally used constants and thus can be easily changed. You can use "shadowing"  to redefine a variable, this binds the name to something else, still immutably, but without using the previous memory location.
+
+Rust is statically typed, meaning that we have to specify the types of all the variables at compile time. So for example the following code is illegal:
+\begin{verbatim}
+def mystery():
+    import random
+    if random.choice([True, False]):
+        return 42
+    else:
+        return "hello"
+
+x = mystery()  # what type is x? we don't know until runtime
+
+print(type(x))  # could be <class 'int'> or <class 'str'>
+
+\end{verbatim}
+Python however would be okay with this. Rust has four 'scalar' types, as in types that represent a single value, integers, floating-point numbers, Booleans, and characters. You can combine these with arrays and tuples. Arrays are a simpler kind of data because they consist of elements of one type, whereas tuples may have elements of multiple types.
 \nocite{*}
 \bibliographystyle{amsalpha}
 \bibliography{one_day_at_a_time}{}
