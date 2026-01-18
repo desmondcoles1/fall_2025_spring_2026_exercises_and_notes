@@ -472,6 +472,52 @@ print(type(x))  # could be <class 'int'> or <class 'str'>
 
 \end{verbatim}
 Python however would be okay with this. Rust has four 'scalar' types, as in types that represent a single value, integers, floating-point numbers, Booleans, and characters. You can combine these with arrays and tuples. Arrays are a simpler kind of data because they consist of elements of one type, whereas tuples may have elements of multiple types.
+
+You can also use vectors instead of arrays. A vector is a way to combine objects of the same type, but it is allowed to have variable length. A vector contains information about it's length, it's capacity (how big it can get), and a location in the heap-allocated memory, i.e. a place where you have memory when you don't know exactly how much you will need yet.
+
+You can also combine data into "structs" which are like tuples with more labelling, and you can equip structs with "methods" that are functions that for that specific struct, you use them by writing something like $my_stuct.my_method()$. This is similar to classes and methods in python but they work differently in Rust. Rust does not use inheritance to relate different structs but instead it uses "traits".
+
+\section{January 18th 2026}
+
+Today I am going to work through more of Rustlings. The next section is on functions. You declare functions by writing "fn":
+\begin{verbatim}
+fn main() {
+}
+\end{verbatim}
+the convention is to name functions in Rust using snake case. Note: Rust doesn't care the order in which functions are defined in a file, this does contrast with a jupyter notebook which does care the order in which things are defined. This is because Rust is a compiled language, the compiler builds machine code for all of it and then executes it, whereas python is interpreted, the machine actually executes the commands line-by-line. 
+
+When you write a function the parentheses after the name can be used to specify the type of the domain, and a right arrow can be used to specify the type of the range. The function will return the last line, which should be written without a semicolon. If you want the function to exit early and return a specified value. Write "return foo".
+
+Functions are made up of \textit{statements} and \textit{expressions}. Statements perform an action without returning a value, expressions return some value. Here's an example from the Rust book that illustrates how the two relate:
+\begin{verbatim}
+fn main() {
+    let x = (let y = 6);
+}
+\end{verbatim}
+the sentence let $y=6$ is a statement, it does not return a value, so you cannot let $x$ be defined as the result! You could however write:
+\begin{verbatim}
+fn main() {
+    let y = 6
+    let x = y;
+}
+\end{verbatim}
+because $y$ is an expression. You could also write:
+\begin{verbatim}
+fn main() {
+    let x = {
+        let y = 6;
+        y
+    };
+
+    println!("The value of y is: {y}");
+}
+\end{verbatim}
+
+Note: when writing a comment write it with a space after the double slash.
+
+The last part of this chapter of the rust book is "control flow". This is basically about running code depending on whether something is true or false. This is "if" "else if" and "else" are for. We also might want to repeat a code block, this is what "loop" "while" and "for" are for. Loop just tells the program to do just that: you loop forever. Typically you would need to add a "break" to stop this loop. You can also label loops to make break or continue refer to the correct loop when you have nested loops. Continue says "skip the rest of this loop starting here and proceed to the next iteration of the loop". 'while' executes a loop as long as a condition is true, and "for" loops by doing executing the codeblock for elements of a list. One might use loop instead of while if you have a complicated logical condition to write, this makes things more readable. Note: whenever you would write "while true" you should use "loop", also for loops are not quite as optimized because of some iterator stuff, while is marginally faster.
+
+These notes are based on \cite{klabnik2023rust}.
 \nocite{*}
 \bibliographystyle{amsalpha}
 \bibliography{one_day_at_a_time}{}
