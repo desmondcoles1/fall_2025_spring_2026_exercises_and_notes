@@ -517,6 +517,8 @@ Note: when writing a comment write it with a space after the double slash.
 
 The last part of this chapter of the rust book is "control flow". This is basically about running code depending on whether something is true or false. This is "if" "else if" and "else" are for. We also might want to repeat a code block, this is what "loop" "while" and "for" are for. Loop just tells the program to do just that: you loop forever. Typically you would need to add a "break" to stop this loop. You can also label loops to make break or continue refer to the correct loop when you have nested loops. Continue says "skip the rest of this loop starting here and proceed to the next iteration of the loop". 'while' executes a loop as long as a condition is true, and "for" loops by doing executing the codeblock for elements of a list. One might use loop instead of while if you have a complicated logical condition to write, this makes things more readable. Note: whenever you would write "while true" you should use "loop", also for loops are not quite as optimized because of some iterator stuff, while is marginally faster.
 
+There's also a bit about slices. Slices let you reference contiguous sequences of elements in some kind of collection (like an array or string). Slices are just pointers and length. String slices are not mutable.
+
 These notes are based on \cite{klabnik2023rust}.
 \nocite{*}
 \bibliographystyle{amsalpha}
