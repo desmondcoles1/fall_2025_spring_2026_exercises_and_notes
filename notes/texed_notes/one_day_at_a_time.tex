@@ -520,6 +520,31 @@ The last part of this chapter of the rust book is "control flow". This is basica
 There's also a bit about slices. Slices let you reference contiguous sequences of elements in some kind of collection (like an array or string). Slices are just pointers and length. String slices are not mutable.
 
 These notes are based on \cite{klabnik2023rust}.
+
+\section{January 19th 2026}
+
+Ownership is about how memory is managed. There are two places in memory that we work with generally, the stack and heap, these are both allocated places in RAM. The stack has order to it: you deal with whatever is 'on top' and new things go 'on top' this makes it less flexible but faster, the heap on the other hand is just memory space, and you need to specify pointers to access things in it. Rust's basic rules are that each value in memory has an owner, something can only have one owner, when the owner is out of scope the value is dropped.
+
+Some data types in rust really store pointers that go to the heap, like strings. When copied in the code the metadata about the stuff in the heap is copied, not the stuff in the heap, and the old reference will be invalidated to avoid memory freeing up twice. Take for example this code:
+
+\begin{verbatim}
+    let s1 = String::from("hello");
+    let s2 = s1;
+
+    println!("{s1}, world!");
+\end{verbatim}
+This returns an error! This is like making a shallow copy and then deleting the original, we call this a 'move'. We make deep copies by cloning. This code compiles though!
+\begin{verbatim}
+    let x = 5;
+    let y = x;
+
+    println!("x = {x}, y = {y}");
+\end{verbatim}
+This is becasue 5 is put into the stack at compile time because 5 has known size at compile time, unlike a string or vec. Here copying x as y is the same as making a deep copy.
+
+One way to point towards thing in memory is to use a 'reference' which we do with the ampersand. We use this when we want to use a value but not transfer ownership. We can use mutable references to change things we reference, but to avoid 'data races' rust will not compile code with two mutable references to one object. Furthermore, the compiler ensures we never have "dangling pointers".
+
+
 \nocite{*}
 \bibliographystyle{amsalpha}
 \bibliography{one_day_at_a_time}{}
