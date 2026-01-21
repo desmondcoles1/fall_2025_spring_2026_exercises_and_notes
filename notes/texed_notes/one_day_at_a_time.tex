@@ -544,6 +544,62 @@ This is becasue 5 is put into the stack at compile time because 5 has known size
 
 One way to point towards thing in memory is to use a 'reference' which we do with the ampersand. We use this when we want to use a value but not transfer ownership. We can use mutable references to change things we reference, but to avoid 'data races' rust will not compile code with two mutable references to one object. Furthermore, the compiler ensures we never have "dangling pointers".
 
+\section{January 20th 2026}
+
+In Object Oriented Programming we have things called objects, which are things that bundle certain other data types together and that also have encapsulation, inheritance, polymorphism. Encapsulation means that the functions or methods for an object stay contained within the object, inheritance means that subobjects get traits from the superobjects, and polymoprhism means that methods/traits apply differently to different subobjects. Classes in python are examples of objects in this sense.
+
+In Rust, structs are similar, methods allow for encapsulation and traits support polymorphism, but structs do not support inheritance by default. So Rust does not really support true OOP in the usual sense.
+
+Here's an example of a struct:
+\begin{verbatim}
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+\end{verbatim}
+These are either immutable or entirely mutable. Here's an example of two strcuts:
+\begin{verbatim}
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn main() {
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 0, 0);
+}
+\end{verbtaim}
+This example matters because at runtime origin and black are the exact same data, but at compile time it is known that they are different structs so the machine code is generated differently.
+
+Structs can borrow data but that's more complicated and requires "lifetimes".
+
+Structs not only make our data more meaningful during computation, but they also allow us to debug better.
+
+We use impl blocks to add methods to structs.
+
+Next is Enums and pattern matching. Enums are something we can use to specify a finite list of possible data types, and we could then use this list to define structs. For example:
+\begin{verbatim}
+    enum IpAddrKind {
+        V4,
+        V6,
+    }
+
+    struct IpAddr {
+        kind: IpAddrKind,
+        address: String,
+    }
+\end{verbatim}
+Options, for example, are enums:
+\begin{verbatim}
+enum Option<T> {
+    Some(T),
+    None,
+}
+\end{verbatim}
+Enums allow you to handle data that might change or have different structures, they are also defined at compile time so they help optimizing performance. You can use match with enums to define functions on the possibilities. Let if and let else allow you to make some match code more succinct.
+
+
+
 
 \nocite{*}
 \bibliographystyle{amsalpha}
